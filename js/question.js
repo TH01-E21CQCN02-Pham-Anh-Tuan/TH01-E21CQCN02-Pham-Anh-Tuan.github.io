@@ -318,31 +318,61 @@ function displayQuestions(questions) {
     });
 }
 
+// let userAnswers = Array(questions.length).fill(null);
+let userAnswers = [];
+
 // Function to handle submit button click
 function handleSubmit() {
-    let correctAnswers = 0;
-    let wrongAnswers = 0;
-    let unanswered = 0;
 
+    userAnswers = [];
+
+    // Loop through each question
     questions.forEach((question, index) => {
-        const selectedAnswer = document.querySelector(`input[name="question${index}"]:checked`);
-        if (selectedAnswer) {
-            if (question.type === "Lựa chọn đúng/sai" || question.type === "Chọn 1 trong 4 đáp án") {
-                if (selectedAnswer.value === (question.answer).toString()) {
-                    correctAnswers++;
-                } else {
-                    wrongAnswers++;
+        const inputElements = document.getElementsByName(`question${index}`);
+
+        if (question.type === "Lựa chọn đúng/sai" || question.type === "Chọn 1 trong 4 đáp án") {
+            let selectedOption = null;
+            inputElements.forEach(input => {
+                if (input.checked) {
+                    selectedOption = input.value;
                 }
-            }
-        } else {
-            unanswered++;
+            });
+
+            // Push user's answer to userAnswers array
+            userAnswers.push({
+                question: question.question,
+                userAnswer: selectedOption,
+                correctAnswer: question.answer
+            });
+        } else if (question.type === "Chọn nhiều đáp án") {
+            const selectedOptions = [];
+            inputElements.forEach(input => {
+                if (input.checked) {
+                    selectedOptions.push(input.value);
+                }
+            });
+
+            // Push user's answer to userAnswers array
+            userAnswers.push({
+                question: question.question,
+                userAnswer: selectedOptions,
+                correctAnswer: question.answer
+            });
+        } else if (question.type === "Trả lời tự luận") {
+            const userAnswer = inputElements[0].value;
+
+            // Push user's answer to userAnswers array
+            userAnswers.push({
+                question: question.question,
+                userAnswer: userAnswer
+            });
         }
     });
 
-    // Store results in localStorage
-    localStorage.setItem('correctAnswers', correctAnswers);
-    localStorage.setItem('wrongAnswers', wrongAnswers);
-    localStorage.setItem('unanswered', unanswered);
+    // Save userAnswers to localStorage
+    localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+
+    localStorage.setItem('questions', JSON.stringify(questions));
 
     // Redirect to result page
     window.location.href = 'result.html';
