@@ -148,15 +148,24 @@ table td {
     font-weight: bold;
 }
 
-.btnCancel {
-    background-color: #ef1414;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btnCancel:hover {
-    background-color: #000000;
-}
+.btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  padding: 16px 0 0;
+    }
+  .btn-wrap button {
+    padding: 0 32px;
+    font-size: 18px;
+    line-height: 48px;
+    border: 1px solid transparent;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.5s ease;
+    cursor: pointer; box-shadow: 0 0 5px 5px #00000020;
+  }
+  .btn-wrap button:hover {
+    border: 1px solid #000;
+    background: transparent;
+    
+  }
