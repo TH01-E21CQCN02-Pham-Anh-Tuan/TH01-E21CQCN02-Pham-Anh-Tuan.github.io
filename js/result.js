@@ -73,7 +73,7 @@ function displayQuestions(questions, data) {
             } else {
                 ans = `<div class="d-flex flex-row align-items-center"><i class="fa-solid fa-xmark mx-3" style="color: #e56a54"></i><p class="p-1 fw-bold m-0">Sai</p></div>
                 <div>
-                    <p class="p-1">Đáp án đúng: <strong>${data[index].correctAnswer === 'true' ? 'Sai' : 'Đúng'}</strong></p>
+                    <p class="p-1">Đáp án đúng: <strong>${data[index].correctAnswer === true ? 'Đúng' : 'Sai'}</strong></p>
                 </div>`;
             }
             questionDiv.innerHTML = `
@@ -108,7 +108,7 @@ function displayQuestions(questions, data) {
                     ${question.options.map((option, idx) => `
                         <li>
                             <label style="display: block;">
-                                ${data[index].correctAnswer.toString() === data[index].userAnswer && idx === data[index].correctAnswer ? `<p class="ansChosen p-1">${String.fromCharCode(65 + idx)}. ${option}</p>` : `<p class="p-1">${String.fromCharCode(65 + idx)}. ${option}</p>`}
+                                ${idx.toString() === data[index].userAnswer ? `<p class="ansChosen p-1">${String.fromCharCode(65 + idx)}. ${option}</p>` : `<p class="p-1">${String.fromCharCode(65 + idx)}. ${option}</p>`}
                             </label>
                         </li>`).join('')}
                 </ul>
